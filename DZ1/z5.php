@@ -25,17 +25,17 @@ $array = array(
 
 echo "CAR BMW <br>";
 
-foreach ($bmw as $val){
-    echo $val . ' ';
+foreach ($array["bmw"] as $val){
+    print_r($val . " ");
 }
 
 echo "<br> <br> CAR TOYOTA <br>";
 
-foreach ($toyota as $val){
-    echo $val . ' ';
+foreach ($array["toyota"] as $val){
+    print_r($val . " ");
 }
 
 echo "<br> <br> CAR OPEL <br>";
-foreach ($opel as $val){
-    echo $val . ' ';
+foreach ($array["opel"] as $val){
+    print_r($val . " ");
 }
