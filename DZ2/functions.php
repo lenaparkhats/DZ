@@ -21,9 +21,9 @@ function task2 ($str, $num){
     echo "Задание 2 <br>";
     $x = func_get_args();
 
-    for ($i = 1; $i < count($x); $i++){
-        echo $x[$i] . " + ";
-    };
+       $len = array_slice($x, 1);
+        echo implode(" + ", $len);
+
     echo "= " . array_sum($x);
     echo "<br>";
 
