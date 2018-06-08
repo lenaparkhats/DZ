@@ -20,11 +20,15 @@ echo "<br> <br>";
 function task2 ($str, $num){
     echo "Задание 2 <br>";
     $x = func_get_args();
-    echo implode("+", $x). " = ";
-    echo array_sum($x);
+
+    for ($i = 1; $i < count($x); $i++){
+        echo $x[$i] . " + ";
+    };
+    echo "= " . array_sum($x);
     echo "<br>";
+
 }
-task2('+', 1, 2, 3, 4, 5);
+task2('+', 3, 2, 3, 4, 5);
 
 echo "<br> <br>";
 
