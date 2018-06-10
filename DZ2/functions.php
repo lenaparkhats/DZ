@@ -42,11 +42,18 @@ function task2 ($str, $num){
             break;
         case "/":
             $len = array_slice($x, 1);
-            echo implode(" / ", $len);
-            for($i = 1; $i < count($x); $i++){
-                $t /= $x[$i];
+            $zero = array_slice($len, 1);
+            for($i = 1; $i < count($zero); $i++){
+                if ($zero[$i] === 0){
+                    echo "Делить на ноль нельзя";
+                }else{
+                    for($p = 1; $p < count($len); $p++){
+                        $t /= $len[$p];
+                    }
+                    echo implode(" / ", $len);
+                    echo "= $t";
+                }
             }
-            echo "= $t";
             break;
     };
 };
@@ -75,4 +82,29 @@ function task3 ($x = 0, $y = 0){
     }else{
         echo "Первое число не целое. Введите целое число";
     }
+}
+
+function task4 (){
+    $date = date("d.m.Y H:i");
+    echo $date . '<br>';
+    $date2 = strtotime('24.02.2016 00:00:00');
+    echo date('d.m.Y H:i:s', $date2);
+}
+
+function task5 (){
+    $str = 'Две бутылки лимонада';
+    $str2 = 'Карл у Клары украл Кораллы';
+    $x = str_replace('Две', 'Три', $str);
+    echo $x . "<br>";
+    for ($i = 0; $i <= strlen($str2); $i++){
+        $pos = str_replace('К', '', $str2);
+    }
+    echo $pos;
+}
+
+function task6(){
+    $file = fopen(__DIR__ . "text.txt", "w+");
+    fwrite ($file, "Hello again!");
+    $print = file_get_contents('text.txt');
+    print_r($print);
 }
