@@ -47,8 +47,8 @@ function task2 ($str, $num){
                 if ($zero[$i] === 0){
                     echo "Делить на ноль нельзя";
                 }else{
-                    for($p = 1; $p < count($len); $p++){
-                        $t /= $len[$p];
+                    for($i = 1; $i < count($zero); $i++){
+                        $t /= $zero[$i];
                     }
                     echo implode(" / ", $len);
                     echo "= $t";
@@ -105,6 +105,6 @@ function task5 (){
 function task6(){
     $file = fopen(__DIR__ . "text.txt", "w+");
     fwrite ($file, "Hello again!");
-    $print = file_get_contents('text.txt');
+    $print = file_get_contents(__DIR__.'text.txt');
     print_r($print);
 }
