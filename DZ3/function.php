@@ -116,7 +116,7 @@ function task4(){
     }
 }
 
-function task6(){
+function task5(){
     $open = file_get_contents('https://en.wikipedia.org/w/api.php?action=query&titles=Main%20Page&prop=revision
 s&rvprop=content&format=json');
     $decodOpen = json_decode($open, true);
@@ -128,4 +128,3 @@ s&rvprop=content&format=json');
     echo 'Значение ключа title: ';
     echo $decodOpen[query][pages][15580374][title];
 }
-task6();
