@@ -1,10 +1,49 @@
 <?php
 function task1 (){
-    $file = file_get_contents( __DIR__ . 'data.xml');
+    $file = file_get_contents( __DIR__ . '\data.xml');
     $xml = new SimpleXMLElement($file);
-    print ($xml->Name->__toString());
+    echo 'Имя: ';
+    print ($xml->Address[0]->Name->__toString()) .'<br>';
+    echo 'Улица: ';
+    print ($xml->Address[0]->Street->__toString()) . '<br>';
+    echo 'Город: ';
+    print ($xml->Address[0]->City->__toString()) . '<br>';
+    echo 'Государство: ';
+    print ($xml->Address[0]->State->__toString()) . '<br>';
+    echo 'Индекс: ';
+    print ($xml->Address[0]->Zip->__toString()) . '<br>';
+    echo 'Страна: ';
+    print ($xml->Address[0]->Country->__toString()) . '<br>' . '<br>';
+    echo 'Имя: ';
+    print ($xml->Address[1]->Name->__toString()) . '<br>';
+    echo 'Улица: ';
+    print ($xml->Address[1]->Street->__toString()) . '<br>';
+    echo 'Город: ';
+    print ($xml->Address[1]->City->__toString()) . '<br>';
+    echo 'Государство: ';
+    print ($xml->Address[1]->State->__toString()) . '<br>';
+    echo 'Индекс: ';
+    print ($xml->Address[1]->Zip->__toString()) . '<br>';
+    echo 'Страна: ';
+    print ($xml->Address[1]->Country->__toString()) . '<br>' . '<br>';
+    print ($xml->DeliveryNotes->__toString()) . '<br>' . '<br>';
+    echo 'Наименование товара: ';
+    print ($xml->Items->Item[0]->ProductName->__toString()) . '<br>';
+    echo 'Количество: ';
+    print ($xml->Items->Item[0]->Quantity->__toString()) . '<br>';
+    echo 'Цена: ';
+    print ($xml->Items->Item[0]->USPrice->__toString()) . '<br>';
+    echo 'Коментарий: ';
+    print ($xml->Items->Item[0]->Comment->__toString()) . '<br>' . '<br>';
+    echo 'Наименование товара: ';
+    print ($xml->Items->Item[1]->ProductName->__toString()) . '<br>';
+    echo 'Количество: ';
+    print ($xml->Items->Item[1]->Quantity->__toString()) . '<br>';
+    echo 'Цена: ';
+    print ($xml->Items->Item[1]->USPrice->__toString()) . '<br>';
+    echo 'Дата отправки: ';
+    print ($xml->Items->Item[1]->ShipDate->__toString()) . '<br>';
 }
-//task1();
 
 
 function task2 (){
@@ -40,7 +79,6 @@ function task2 (){
     $res = array_diff($decodOpen, $decodOpen2);
     print_r($res);
 }
-//task2();
 
 
 function task3(){
@@ -51,41 +89,43 @@ function task3(){
     print_r($mas);
     $file = fopen('mas.csv', 'w');
     foreach ($mas as $pol){
-//        fputcsv($file, $pol , "+");
-        fputcsv($file,explode('+',$pol));
+        fputcsv($file,explode(' ',$pol));
     }
 }
-//task3();
 
 
-function task5(){
+function task4(){
     $csvP = 'mas.csv';
     $sum = 0;
     $csvF = fopen($csvP, 'r');
-    if ($csvF){
+    if ($csvF) {
         $res = [];
-        while (($csvD = fgetcsv($csvF, 100, '+')) !== false){
+        while (($csvD = fgetcsv($csvF, 100, '+')) !== false) {
             $res[] = $csvD;
         }
         echo '<pre>';
+        print_r($res);
 
-        for ($i = 0; $i <= count($res); $i++){
-            if ($res[$i] % 2 == 0){
-                $x = $res[$i];
-                $sum = $sum + $x;
+        for ($i = 0; $i <= count($res); $i++) {
+            if ($res[$i][0] % 2 == 0){
+                $x = $res[$i][0];
+                $sum += $x;
             }
         }
-//        $summ = array_sum($res);
-        print_r($res);
         echo $sum;
     }
 }
-//task5();
 
 function task6(){
-    $open = file_get_contents('en.wikipedia.org/w/api.php?action=query&titles=Main%20Page&prop=revisions&rvprop=content&format=json');
-//    $decodOpen = json_decode($open, true);
+    $open = file_get_contents('https://en.wikipedia.org/w/api.php?action=query&titles=Main%20Page&prop=revision
+s&rvprop=content&format=json');
+    $decodOpen = json_decode($open, true);
+    echo '<pre>';
+    print_r($decodOpen);
 
-    echo ($open);
+    echo 'Значение ключа pageid: ';
+    echo $decodOpen[query][pages][15580374][pageid] . '<br>';
+    echo 'Значение ключа title: ';
+    echo $decodOpen[query][pages][15580374][title];
 }
-//task6();
+task6();
