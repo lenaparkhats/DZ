@@ -53,18 +53,9 @@ if ($data == null){
 $count = "SELECT COUNT(id_user) FROM orders WHERE id_user = '$last'";
 $count_q = $pdo ->query($count);
 $data_count = $count_q->fetchAll(PDO::FETCH_ASSOC);
-echo "<pre>";
 
-print_r($data_count);
+$message = "<h1>MR. Burger</h1>" . "<h2>Санкт-Петербург, ул.Бабушкина, д.12/1, 15. Тел. +7 (812) 377-13-77</h2> <br>" . "<b>Заказ № </b>" . $or . "<br>" . "<b>Ваш заказ будет доставлен по адресу</b>: $street $home $part $appt $floor" . "<br><br> DarkBeefBurger за 500 рублей, 1 шт <br><br>" . "Спасибо - это ваш " . $data_count[0]['COUNT(id_user)'] . " заказ.";
 
-print_r ($data_count[0][COUNT(id_user)]);
+echo $message;
 
-
-echo "<h1>MR. Burger</h1>";
-echo "<h2>Санкт-Петербург, ул.Бабушкина, д.12/1, 15 тел.+7 (812) 377-13-77</h2> <br>";
-echo "<b>Заказ № </b>" . $or . "<br>";
-echo "<b>Ваш заказ будет доставлен по адресу</b>>: $street $home $part $appt $floor";
-echo "DarkBeefBurger за 500 рублей, 1 шт <br><br>";
-echo "Спасибо - это ваш заказ";
-//print_r($last);
-//print_r($name);
+mail($email, 'Заказ бургера', $message);
