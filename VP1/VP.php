@@ -12,13 +12,9 @@ $comment = $_POST['comment'];
 $dsn = "mysql:host=localhost;dbname=LF;charset=utf8";
 $pdo = new PDO($dsn, 'root', '');
 
-//$id_user = $pdo->prepare("SELECT id FROM user WHERE email = :email");
-//$id_user->bindParam(':email', $email, PDO::PARAM_STR);
-//$id_user->execute();
-
 $id_user = "SELECT id FROM user WHERE email = '$email'";
 $idU = $pdo ->query($id_user);
-$data = $idU->fetchAll(PDO::FETCH_OBJ);
+$data = $idU->fetch(PDO::FETCH_OBJ);
 
 $stmt = $pdo->prepare("INSERT INTO user (name, email, tel, street, home, part, appt, floor, comment) VALUES (:name, :email, :phone, :street, :home, :part, :appt, :floor, :comment)");
 
@@ -34,7 +30,7 @@ $stmt->bindParam(':comment', $comment, PDO::PARAM_STR);
 
 $order = $pdo->prepare("INSERT INTO orders (id_user, name_user, street, home, part, appt, floor, comment) VALUES (:id_user, :name_user, :street, :home, :part, :appt, :floor, :comment)");
 
-$order->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+$order->bindParam(':id_user', $last, PDO::PARAM_INT);
 $order->bindParam(':name_user', $name, PDO::PARAM_STR);
 $order->bindParam(':street', $street, PDO::PARAM_STR);
 $order->bindParam(':home', $home, PDO::PARAM_STR);
@@ -45,7 +41,30 @@ $order->bindParam(':comment', $comment, PDO::PARAM_STR);
 
 if ($data == null){
     $stmt->execute();
+    $last = $pdo->lastInsertId();
     $order->execute();
+    $or = $pdo->lastInsertId();
 } else {
+    $last = $data->id;
     $order->execute();
+    $or = $pdo->lastInsertId();
 };
+
+$count = "SELECT COUNT(id_user) FROM orders WHERE id_user = '$last'";
+$count_q = $pdo ->query($count);
+$data_count = $count_q->fetchAll(PDO::FETCH_ASSOC);
+echo "<pre>";
+
+print_r($data_count);
+
+print_r ($data_count[0][COUNT(id_user)]);
+
+
+echo "<h1>MR. Burger</h1>";
+echo "<h2>Санкт-Петербург, ул.Бабушкина, д.12/1, 15 тел.+7 (812) 377-13-77</h2> <br>";
+echo "<b>Заказ № </b>" . $or . "<br>";
+echo "<b>Ваш заказ будет доставлен по адресу</b>>: $street $home $part $appt $floor";
+echo "DarkBeefBurger за 500 рублей, 1 шт <br><br>";
+echo "Спасибо - это ваш заказ";
+//print_r($last);
+//print_r($name);
