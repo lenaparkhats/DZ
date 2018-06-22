@@ -27,7 +27,7 @@ class counter_bas{                      //абстрактный класс
     }
 }
 class basic extends counter_bas {                    //базавый тариф
-    public function bas_count ($km, $min, $age){
+    public function bas_count ($km, $min){
 //        $r = $this->count($km, $min, $age);
 //        echo $r;
 //        $this->km = $km;
@@ -43,12 +43,17 @@ class basic extends counter_bas {                    //базавый тариф
 
     public function bas_if_count($age){
         $r = $this->count_if($this->cena_b,$age);
+        $this->cena = $this->cena_b;
         echo $r;
     }
 }
 $basic = new basic;
-$basic ->bas_count(20, 10, 26);
-$basic ->bas_if_count(26);
+$basic ->bas_count(20, 10);
+$basic ->bas_if_count(17);
+
+
+
+
 
 class hourly extends counter_bas {
     function hourly_count ($km, $min, $age){
